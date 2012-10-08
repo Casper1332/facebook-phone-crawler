@@ -1,16 +1,18 @@
 # Written by TurboBorland
 # bug brought to me by Suriya
-import socket, ssl, re, itertools
-from time import sleep
-from sys import argv
-from multiprocessing import Pool, Lock, active_children
+try:
+	import socket, ssl, re, itertools
+	from time import sleep
+	from sys import argv
+	from multiprocessing import Pool, Lock, active_children
+except ImportError:	exit("Error importing modules. You may be using an older version of Python")
 
 def usage(arg):
-	print("\n"+arg+"\n")
-	exit('''Facebook user/number association game!
+	print('''\nFacebook user/number association game!
 Written by TurboBorland - Credits to Suriya for finding the hilarious no-rate issue
-***You need to supply your own cookie values until I fix it. This is only quick hour-long PoC project***\n
--start\tThe starting number country code+area code+number (ex: 19205432221)
+***You need to supply your own cookie values until I fix it. This is only quick hour-long PoC project***''')
+	print("\n"+arg+"\n")
+	exit('''-start\tThe starting number country code+area code+number (ex: 19205432221)
 -end\tThe number to end on country code+area code+number (ex:19205432230)
 -proc\tThe amount of concurrent processes to run at once (default 10)
 -wait\tThe amount of time to wait between each individual grab (default 0)
@@ -32,7 +34,7 @@ append = 0
 x = 0
 
 if (len(argv) < 2):
-	usage("At least provide a start phone number range!")
+	usage("At least provide a phone number range!")
 for arg in argv:
 	if (arg == "-start"):
 		try:	startn = int(argv[x+1])
